@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clases de Computación y Regularización · Tec. Félix García</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&display=swap">
+<style>
+:root{
+  --blue:#1d3fae; --orange:#f26b1d; --yellow:#ffc61a; --ink:#14224f; --muted:#4a5576;
+  --bg:#fdf6fa; --bg2:#eaf0ff; --card:#ffffff; --line:#e6e9f5; --pink:#ffd9e4; --sky:#cfe0ff; --peach:#fde3cc;
+  --blue-text:#1d3fae;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --blue:#4a6bff; --blue-text:#9db2ff; --ink:#eef1ff; --muted:#aab3d6; --bg:#0f1530; --bg2:#141c3d;
+    --card:#1a2347; --line:#2a3566; --pink:#4a2340; --sky:#1f3470; --peach:#4a2f22;
+  }
+}
+:root[data-theme="dark"]{
+  --blue:#4a6bff; --blue-text:#9db2ff; --ink:#eef1ff; --muted:#aab3d6; --bg:#0f1530; --bg2:#141c3d;
+  --card:#1a2347; --line:#2a3566; --pink:#4a2340; --sky:#1f3470; --peach:#4a2f22;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);
+  background:linear-gradient(160deg,var(--bg),var(--bg2));min-height:100vh;overflow-x:hidden;line-height:1.45}
+.blob{position:fixed;border-radius:50%;z-index:0;pointer-events:none;animation:float 14s ease-in-out infinite}
+.b1{width:340px;height:340px;background:var(--pink);top:-110px;left:-90px}
+.b2{width:380px;height:380px;background:var(--sky);top:22%;right:-170px;animation-delay:-5s}
+.b3{width:300px;height:300px;background:var(--peach);bottom:-100px;left:-80px;animation-delay:-9s}
+@keyframes float{50%{transform:translate(18px,-22px) scale(1.05)}}
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:22px 18px 40px}
+
+.top{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.pill{border-radius:999px;font-weight:800;padding:9px 22px;font-size:.95rem;letter-spacing:.02em}
+.pill.blue{background:var(--blue);color:#fff}
+.pill.yellow{background:var(--yellow);color:#14224f;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.045);box-shadow:0 0 0 8px rgba(255,198,26,.25)}}
+
+h1{text-align:center;font-weight:900;line-height:1.02;margin:26px 0 14px;font-size:clamp(2.3rem,7.6vw,4.6rem)}
+h1 .l1,h1 .l2{display:block;overflow:hidden}
+h1 .l1 span,h1 .l2 span{display:inline-block;transform:translateY(105%);animation:rise .8s cubic-bezier(.2,.8,.2,1) forwards}
+h1 .l1{color:var(--blue-text)} h1 .l1 span{animation-delay:.1s}
+h1 .l2{color:var(--orange)} h1 .l2 span{animation-delay:.3s}
+@keyframes rise{to{transform:none}}
+.sub{text-align:center;color:var(--blue-text);font-weight:700;font-size:clamp(1rem,2.6vw,1.2rem);max-width:720px;margin:0 auto 26px;opacity:0;animation:fade .8s .7s forwards}
+@keyframes fade{to{opacity:1}}
+
+.hero{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:start}
+.photo{background:linear-gradient(160deg,var(--sky),var(--pink));border:4px solid var(--card);border-bottom:10px solid var(--blue);border-radius:22px;aspect-ratio:1/1.1;display:grid;place-items:center;overflow:hidden}
+.photo svg{width:88%;height:auto}
+.screen-glow{animation:glow 2.6s ease-in-out infinite}
+@keyframes glow{50%{opacity:.55}}
+.cursor{animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.teacher{background:var(--blue);color:#fff;border-radius:16px;padding:16px 20px;margin-bottom:16px}
+.teacher small{color:var(--yellow);font-weight:800;letter-spacing:.12em;font-size:.78rem}
+.teacher h2{font-size:clamp(1.15rem,3.4vw,1.5rem);font-weight:800;margin:2px 0}
+.teacher p{font-size:.92rem;opacity:.92}
+h3.q{color:var(--orange);font-weight:800;font-size:1.15rem;margin-bottom:8px}
+.for li{list-style:none;position:relative;padding-left:20px;margin:7px 0;font-weight:500;font-size:.96rem}
+.for li::before{content:"";position:absolute;left:0;top:.5em;width:10px;height:10px;border-radius:50%;background:var(--orange)}
+
+.prog{text-align:center;margin:34px 0 16px;font-weight:800;font-size:clamp(1.05rem,3vw,1.3rem);color:var(--blue-text)}
+.prog b{color:var(--orange)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{background:var(--card);border-radius:16px;border-left:6px solid var(--blue);padding:14px 16px 14px 14px;display:flex;gap:12px;
+  box-shadow:0 4px 14px rgba(29,63,174,.08);transition:transform .25s,box-shadow .25s;opacity:0;transform:translateY(22px)}
+.card:nth-child(even){border-left-color:var(--orange)}
+.card.in{opacity:1;transform:none;transition:opacity .6s,transform .6s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(29,63,174,.16)}
+.num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;display:grid;place-items:center;font-size:.9rem}
+.card:nth-child(even) .num{background:var(--orange)}
+.card h4{font-size:1.02rem;font-weight:800;margin-bottom:3px}
+.card p{font-size:.88rem;color:var(--muted)}
+
+.info{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:14px;margin-top:22px}
+.box{background:var(--card);border:2px solid var(--blue);border-radius:16px;padding:12px 16px}
+.box h5{color:var(--orange);font-weight:800;font-size:.9rem;letter-spacing:.06em;margin-bottom:4px}
+.box p{font-size:.93rem;font-weight:500}
+
+.prize{margin-top:22px;background:var(--yellow);color:#14224f;border-radius:18px;padding:14px 22px;display:flex;align-items:center;gap:16px;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.prize::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.6s ease-in-out infinite}
+@keyframes shine{0%,55%{left:-60%}100%{left:130%}}
+.prize .tr{font-size:2.4rem;line-height:1;display:inline-block;animation:wiggle 2.4s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes wiggle{0%,60%,100%{transform:rotate(0)}70%{transform:rotate(-12deg) scale(1.1)}80%{transform:rotate(10deg) scale(1.1)}90%{transform:rotate(-5deg)}}
+.prize strong{display:block;font-size:clamp(1.1rem,3.4vw,1.45rem);font-weight:900}
+.prize span.t{font-weight:600;font-size:.95rem}
+.cta{margin-top:28px;background:var(--orange);color:#fff;border-radius:20px;border-bottom:8px solid #c4510f;padding:20px 26px;
+  display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.cta h2{font-size:1.7rem;font-weight:900}
+.cta p{font-weight:700}
+.wa{display:flex;align-items:center;gap:14px;text-decoration:none;color:#fff;background:rgba(0,0,0,.12);border-radius:16px;padding:10px 18px 10px 12px;transition:transform .2s}
+.wa:hover{transform:scale(1.04)}
+.wa:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.wa .ic{width:52px;height:52px;border-radius:50%;background:#25d366;display:grid;place-items:center;animation:ring 2.2s infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(37,211,102,.7)}70%,100%{box-shadow:0 0 0 16px rgba(37,211,102,0)}}
+.wa small{display:block;font-weight:700;font-size:.8rem}
+.wa strong{font-size:clamp(1.5rem,5vw,2rem);font-weight:900;letter-spacing:.01em}
+
+@media (max-width:720px){
+  .hero{grid-template-columns:1fr}.photo{max-width:230px;margin:0 auto;width:100%}
+  .grid,.info{grid-template-columns:1fr}
+  .cta{justify-content:center;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  h1 .l1 span,h1 .l2 span{transform:none}.sub,.card{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<main class="wrap">
+  <div class="top">
+    <span class="pill blue">Aprende y Enfócate</span>
+    <span class="pill yellow">Cupo limitado: 20 lugares por grupo</span>
+  </div>
+
+  <h1><span class="l1"><span>Clases de computación</span></span><span class="l2"><span>y regularización</span></span></h1>
+  <p class="sub">Secundaria y Preparatoria · Presencial y online · Grupos reducidos de 15 a 20 alumnos</p>
+
+  <section class="hero">
+    <div class="photo" aria-hidden="true">
+      <svg viewBox="0 0 220 200" role="img" aria-label="Computadora">
+        <rect x="30" y="20" width="160" height="110" rx="10" fill="#14224f"/>
+        <rect x="40" y="30" width="140" height="90" rx="5" fill="#1d3fae" class="screen-glow"/>
+        <rect x="50" y="42" width="60" height="8" rx="4" fill="#ffc61a"/>
+        <rect x="50" y="58" width="95" height="6" rx="3" fill="#fff" opacity=".8"/>
+        <rect x="50" y="72" width="80" height="6" rx="3" fill="#fff" opacity=".6"/>
+        <rect x="50" y="88" width="14" height="14" fill="#f26b1d" class="cursor"/>
+        <rect x="98" y="130" width="24" height="26" fill="#9aa6c9"/>
+        <rect x="70" y="154" width="80" height="9" rx="4.5" fill="#6f7ba3"/>
+        <rect x="55" y="174" width="110" height="14" rx="5" fill="#fff"/>
+      </svg>
+    </div>
+    <div>
+      <div class="teacher">
+        <small>INSTRUCTOR</small>
+        <h2>Tec. Félix Joaquín García Hernández</h2>
+        <p>Especialista en Competencias Digitales</p>
+      </div>
+      <h3 class="q">¿A quién está dirigido?</h3>
+      <ul class="for">
+        <li>Estudiantes con rezago escolar o dificultades académicas.</li>
+        <li>Alumnos que necesitan aprender a usar la computadora y herramientas digitales para sus tareas.</li>
+        <li>Alumnos de secundaria que requieren dominar Word, Excel y PowerPoint.</li>
+        <li>Estudiantes de preparatoria interesados en aprovechar la inteligencia artificial de forma correcta para sus trabajos.</li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="prog">Contenido del programa · <b>48 horas totales / 16 sesiones</b></p>
+  <section class="grid">
+    <article class="card"><span class="num">1</span><div><h4>Computación desde cero</h4><p>Manejo de equipo (encendido, teclado y ratón). Gestión de archivos, directorios y organización de tareas.</p></div></article>
+    <article class="card"><span class="num">2</span><div><h4>Word para tareas escolares</h4><p>Creación de portadas, formato de trabajos, índices y manejo de imágenes.</p></div></article>
+    <article class="card"><span class="num">3</span><div><h4>Excel básico escolar</h4><p>Elaboración de tablas, operaciones básicas (sumas, promedios) y gráficas escolares.</p></div></article>
+    <article class="card"><span class="num">4</span><div><h4>PowerPoint y Canva para exposiciones</h4><p>Diseño de diapositivas atractivas y profesionales.</p></div></article>
+    <article class="card"><span class="num">5</span><div><h4>Regularización en matemáticas</h4><p>Operaciones fundamentales, fracciones, decimales y porcentajes. Introducción a ecuaciones y resolución de problemas de secundaria.</p></div></article>
+    <article class="card"><span class="num">6</span><div><h4>Regularización en español</h4><p>Técnicas de lectura y comprensión lectora. Reglas de ortografía, acentuación y redacción de resúmenes.</p></div></article>
+    <article class="card"><span class="num">7</span><div><h4>Internet y herramientas digitales</h4><p>Uso de correo Gmail, Google Drive, Google Classroom y Google Meet. Búsquedas efectivas en la web. Introducción ética y práctica al uso de ChatGPT e IA para el ámbito escolar.</p></div></article>
+    <article class="card"><span class="num">8</span><div><h4>Asesoría y apoyo continuo</h4><p>Espacio dedicado a resolver dudas con tareas reales de la escuela.</p></div></article>
+  </section>
+
+  <section class="info">
+    <div class="box"><h5>EVALUACIÓN Y ACREDITACIÓN</h5><p>Examen final, entrega de portafolio de trabajos y Constancia de Acreditación de Conocimientos (48 horas con folio).</p></div>
+    <div class="box"><h5>HORARIO</h5><p>Domingos de 9:00 AM a 12:00 PM</p></div>
+    <div class="box"><h5>UBICACIÓN</h5><p>Av. El Jaral 417, 2.º piso</p></div>
+  </section>
+
+  <section class="prize" aria-label="Premios">
+    <span class="tr" aria-hidden="true">🏆</span>
+    <div><strong>¡Premios a los primeros lugares!</strong><span class="t">Se entregan al finalizar el curso</span></div>
+    <span class="tr" aria-hidden="true">🥇</span>
+  </section>
+
+  <section class="cta">
+    <div><h2>INSCRIPCIONES</h2><p>Atiende: Tec. Félix García</p></div>
+    <a class="wa" href="https://wa.me/528125970947" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp al 81 2597 0947">
+      <span class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg></span>
+      <span><small>WhatsApp</small><strong>81 2597 0947</strong></span>
+    </a>
+  </section>
+</main>
+<script>
+(function(){
+  var cards=document.querySelectorAll('.card');
+  if(!('IntersectionObserver' in window)){cards.forEach(function(c){c.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        var i=Array.prototype.indexOf.call(cards,e.target);
+        e.target.style.transitionDelay=((i%2)*0.12)+'s';
+        e.target.classList.add('in');io.unobserve(e.target);
+      }
+    });
+  },{threshold:.15});
+  cards.forEach(function(c){io.observe(c)});
+})();
+</script>
+</body>
+</html>
